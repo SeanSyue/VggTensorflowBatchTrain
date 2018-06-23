@@ -1,0 +1,5 @@
+.idea/**/workspace.xml
+*.npy
+*.pyc
+__pycache__/
+

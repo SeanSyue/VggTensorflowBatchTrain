@@ -1,3 +1,4 @@
+from itertools import cycle, islice
 import skimage
 import skimage.io
 import skimage.transform
@@ -58,6 +59,22 @@ def load_image2(path, height=None, width=None):
         ny = img.shape[0]
         nx = img.shape[1]
     return skimage.transform.resize(img, (ny, nx))
+
+
+# --------------Custom functions----------------------
+def gen_batch(l, n):
+    """ Custom function """
+    while True:
+        yield list(islice(cycle(l), n))
+
+
+def get_label(l):
+    """ Custom function """
+    if '/normal/' in l:
+        return [0, 1]
+    elif '/defect/' in l:
+        return [1, 0]
+# --------------Custom functions----------------------
 
 
 def test():

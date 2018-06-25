@@ -51,7 +51,7 @@ class Vgg19:
         self.conv2_2 = self.conv_layer(self.conv2_1, 128, 128, "conv2_2")
         self.pool2 = self.max_pool(self.conv2_2, 'pool2')
 
-        self.b  = self.conv_layer(self.pool2, 128, 256, "conv3_1")
+        self.b = self.conv_layer(self.pool2, 128, 256, "conv3_1")
         self.conv3_2 = self.conv_layer(self.conv3_1, 256, 256, "conv3_2")
         self.conv3_3 = self.conv_layer(self.conv3_2, 256, 256, "conv3_3")
         self.conv3_4 = self.conv_layer(self.conv3_3, 256, 256, "conv3_4")
@@ -233,3 +233,6 @@ class Vgg19Resizable(Vgg19):
         self.prob = tf.nn.softmax(self.fc7_custom, name="prob")
 
         self.data_dict = None
+
+    def save_npy(self, sess, npy_path='./pcb_900/weights'):
+        super(Vgg19Resizable, self).save_npy(sess=sess, npy_path=npy_path)

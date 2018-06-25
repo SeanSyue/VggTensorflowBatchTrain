@@ -51,9 +51,10 @@ with tf.Session(graph=graph) as sess:
             train_mode: True
         }
 
-        cost_val = cost.eval(feed_dict=feed_dict, session=sess)
-        print('cross entropy: ', cost_val)
-        sess.run(train, feed_dict=feed_dict)
-        if i % 10 == 0:
-            with open('./cost.txt', 'a') as f:
-                f.write(str(cost_val) + '\n')
+        _, cost_val, accu_val = sess.run([train, cost, accuracy], feed_dict=feed_dict)
+
+        info = 'Step: {} | Loss: {:0.5f} | Accuracy: {:0.5f} | L_rate: {}'.format(i, cost_val, accu_val, L_RATE)
+        print(info)
+
+        if i % 500 == 0:
+            vgg.save_npy(sess, 'pcb_900/weights')
